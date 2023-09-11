@@ -38,22 +38,23 @@ export default function Home() {
 
   return (
     <main className="w-full space-y-2 text-gray-700">
-      <div className="mx-auto grid w-full max-w-md gap-y-4  py-10">
-        <div className="grid grid-cols-[auto_1fr] items-center gap-x-2">
+      <div className="mx-auto w-full max-w-md space-y-4 py-10">
+        <div className="flex items-center gap-x-2">
           <div>Columns: </div>
           <input
+            className="h-12 grow rounded border border-gray-300 px-2"
             value={value.columns}
             onChange={(e) =>
               setValue((prev) => ({ ...prev, columns: Number(e.target.value) }))
             }
             type="number"
-            className="h-12 grow rounded border border-gray-300 px-2"
           />
         </div>
 
-        <div className="grid grid-rows-[auto_100px] gap-y-2">
+        <div className="w-full space-y-2">
           <div>Pitch Strings: </div>
           <textarea
+            className="h-72 w-full rounded border border-gray-300 px-2"
             value={value.pitchStringsInput}
             onChange={(e) =>
               setValue((prev) => ({
@@ -61,13 +62,13 @@ export default function Home() {
                 pitchStringsInput: e.target.value,
               }))
             }
-            className="h-50 rounded border border-gray-300 px-2"
           />
         </div>
 
-        <div className="grid grid-rows-[auto_100px] gap-y-2">
+        <div className="w-full space-y-2">
           <div>Labels: </div>
           <textarea
+            className="h-72 w-full rounded border border-gray-300 px-2"
             value={value.labelsInput}
             onChange={(e) => {
               const labelsInput = e.target.value;
@@ -78,7 +79,6 @@ export default function Home() {
                 labels,
               }));
             }}
-            className="rounded border border-gray-300 px-2"
           />
         </div>
         <div className="flex items-center gap-x-2">

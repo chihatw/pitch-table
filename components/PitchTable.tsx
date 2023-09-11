@@ -15,7 +15,9 @@ export function PitchTable({
       <tbody>
         {tableData.map((rows, index) => (
           <tr key={index}>
-            {!!labels && <td>{labels[index]}</td>}
+            {!!labels && (
+              <td className="text-sm text-black">{labels[index]}</td>
+            )}
             {rows.map((pitchString, index) => (
               <td key={index}>
                 <div
