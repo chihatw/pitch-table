@@ -1,4 +1,3 @@
-import { string2PitchesArray } from "@/utils/string2PitchesArray";
 import { SentencePitchLine } from "./SentencePitchLine";
 
 export function PitchTable({
@@ -25,9 +24,7 @@ export function PitchTable({
                     alignRight ? "justify-end" : "justify-start"
                   }`}
                 >
-                  <SentencePitchLine
-                    pitchesArray={string2PitchesArray(pitchString)}
-                  />
+                  <SentencePitchLine pitchString={pitchString} />
                 </div>
               </td>
             ))}

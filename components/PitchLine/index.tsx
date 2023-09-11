@@ -1,55 +1,39 @@
-import Line from "./Line";
-import Mora from "./Mora";
+import {
+  MoraCircle,
+  MoraString,
+  PitchLineContextProvider,
+  SVGLine,
+} from "./components";
 
-export function PitchLine({ pitches }: { pitches: string[][] }) {
-  // 後方互換のため、 !!pitches のチェックが必要
-  const isEmpty = !!pitches[0] && pitches[0][0] === "";
-  if (isEmpty) {
-    // 空要素
-    return <div style={{ height: 40, width: 15 }} />;
-  } else {
-    const isMute = !!pitches && pitches[0] && ["m"].includes(pitches[0][0]);
-    if (isMute) {
-      // ミュート
-      return <Mora mora={""} isMute isOdaka={false} currentPitch={false} />;
-    } else {
-      const pitchArray = pitches.map((i) => !!i[1]);
+import { checkIsOdaka, string2PitchesArray } from "./services";
 
-      const isOdaka =
-        pitches.length > 1 && // pitchesの長さが1より大きい
-        // pitchesの最後から二つ目が高ピッチ
-        !!pitches.slice(-2, -1)[0][1] &&
-        // pitchesの最後が空文字列
-        pitches.slice(-1)[0][0] === "";
+const WIDTH = 15;
 
-      const moraArray = pitches.map((i) => i[0]);
+const PitchLine = ({ pitchString }: { pitchString: string }) => {
+  const pitches = string2PitchesArray(pitchString)[0] || [[""]];
+  const isOdaka = checkIsOdaka(pitches);
+  isOdaka && pitches.pop();
 
-      // 尾高の場合、最後の[""]を取り除く
-      if (!!pitches && isOdaka) {
-        pitchArray.pop();
-        moraArray.pop();
-      }
+  let lineWidth = pitches.length * WIDTH;
+  isOdaka && (lineWidth = +WIDTH);
 
-      return (
-        <div style={{ position: "relative" }}>
-          <Line isOdaka={isOdaka} pitchArray={pitchArray} />
-          <div style={{ display: "flex" }}>
-            {moraArray.map((mora, index) => {
-              const isLast = index === moraArray.length - 1;
-              return (
-                <Mora
-                  key={index}
-                  mora={mora}
-                  isLast={isLast}
-                  isOdaka={isOdaka}
-                  currentPitch={pitchArray[index]}
-                  nextPitch={!isLast ? pitchArray[index + 1] : undefined}
-                />
-              );
-            })}
-          </div>
+  return (
+    <PitchLineContextProvider pitches={pitches} isOdaka={isOdaka} width={WIDTH}>
+      <div className="relative h-10 ">
+        <div className="absolute top-0 h-4" style={{ width: lineWidth }}>
+          <SVGLine />
         </div>
-      );
-    }
-  }
-}
+        <div className="flex flex-nowrap ">
+          {pitches.map((_, index) => (
+            <div key={index} className="grid h-10 w-[15px] grid-rows-2 ">
+              <MoraCircle index={index} />
+              <MoraString index={index} />
+            </div>
+          ))}
+        </div>
+      </div>
+    </PitchLineContextProvider>
+  );
+};
+
+export default PitchLine;

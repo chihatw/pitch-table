@@ -1,14 +1,10 @@
-import { PitchLine } from "../PitchLine";
+import PitchLine from "../PitchLine";
 
-export function SentencePitchLine({
-  pitchesArray,
-}: {
-  pitchesArray: string[][][];
-}) {
+export function SentencePitchLine({ pitchString }: { pitchString: string }) {
   return (
     <div style={{ display: "flex", flexWrap: "wrap" }}>
-      {pitchesArray.map((pitches, index) => (
-        <PitchLine pitches={pitches} key={index} />
+      {pitchString.split("　").map((wordPitchString, index) => (
+        <PitchLine key={index} pitchString={wordPitchString} />
       ))}
     </div>
   );

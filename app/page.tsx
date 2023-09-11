@@ -2,6 +2,7 @@
 
 import { PitchTable } from "@/components/PitchTable";
 import { useEffect, useState } from "react";
+import { MdExpandLess, MdExpandMore } from "react-icons/md";
 
 type PitchTablePros = {
   columns: number;
@@ -10,6 +11,7 @@ type PitchTablePros = {
   alignRight: boolean;
   pitchStrings: string[][];
   pitchStringsInput: string;
+  openLabels: boolean;
 };
 
 export default function Home() {
@@ -20,6 +22,7 @@ export default function Home() {
     alignRight: false,
     pitchStrings: [],
     pitchStringsInput: "",
+    openLabels: true,
   });
 
   useEffect(() => {
@@ -65,10 +68,22 @@ export default function Home() {
           />
         </div>
 
-        <div className="w-full space-y-2">
-          <div>Labels: </div>
+        <div className={"w-full space-y-2"}>
+          <div className="flex gap-x-2">
+            <div
+              className="cursor-pointer"
+              onClick={() =>
+                setValue((prev) => ({ ...prev, openLabels: !prev.openLabels }))
+              }
+            >
+              {value.openLabels ? <MdExpandLess /> : <MdExpandMore />}
+            </div>
+            Labels:
+          </div>
           <textarea
-            className="h-72 w-full rounded border border-gray-300 px-2"
+            className={`${
+              value.openLabels ? "h-72 opacity-100" : "h-0 opacity-0"
+            } w-full rounded border border-gray-300 px-2 duration-500`}
             value={value.labelsInput}
             onChange={(e) => {
               const labelsInput = e.target.value;
