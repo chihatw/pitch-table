@@ -1,7 +1,12 @@
-import { usePitchLineContext } from "./PitchLineContextProvider";
-
-const SVGLine = () => {
-  const { isOdaka, pitches, width } = usePitchLineContext();
+const SVGLine = ({
+  isOdaka,
+  pitches,
+  width,
+}: {
+  isOdaka: boolean;
+  pitches: string[][];
+  width: number;
+}) => {
   const { points, odakaLastPoint } = buildPoints(pitches, width);
   return (
     <svg className="inset-0">

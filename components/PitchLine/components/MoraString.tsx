@@ -1,8 +1,12 @@
-import { usePitchLineContext } from "./PitchLineContextProvider";
-
-const MoraString = ({ index }: { index: number }) => {
-  const { pitches, isOdaka } = usePitchLineContext();
-
+const MoraString = ({
+  index,
+  pitches,
+  isOdaka,
+}: {
+  index: number;
+  isOdaka: boolean;
+  pitches: string[][];
+}) => {
   const mora = pitches.at(index)?.at(0);
   const isAccentCore = calcIsAccentCore(index, pitches, isOdaka);
   return (

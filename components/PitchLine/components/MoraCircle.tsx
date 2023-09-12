@@ -1,8 +1,10 @@
-import { usePitchLineContext } from "./PitchLineContextProvider";
-
-const MoraCircle = ({ index }: { index: number }) => {
-  const { pitches } = usePitchLineContext();
-
+const MoraCircle = ({
+  index,
+  pitches,
+}: {
+  index: number;
+  pitches: string[][];
+}) => {
   const isHigh = !!pitches.at(index)?.at(1);
   const isMute = ["っ", "ッ"].includes(pitches.at(index)?.at(0) || "");
 
