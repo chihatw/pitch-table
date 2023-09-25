@@ -13,7 +13,7 @@ export function PitchTable({
     <table>
       <tbody>
         {tableData.map((rows, index) => (
-          <tr key={index}>
+          <tr key={index} className="h-12">
             {!!labels && (
               <td className="text-sm text-black">{labels[index]}</td>
             )}
@@ -24,7 +24,7 @@ export function PitchTable({
                     alignRight ? "justify-end" : "justify-start"
                   }`}
                 >
-                  <SentencePitchLine pitchString={pitchString} />
+                  <SentencePitchLine pitchString={pitchString || ""} />
                 </div>
               </td>
             ))}
